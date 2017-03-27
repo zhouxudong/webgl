@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw a point </title>
+    <style>
+        body{background-color: #bbbbbb;}
+        #webgl{
+            background-color:#ffffff;
+        }
+    </style>
+</head>
+<body onload="main()">
+<canvas id="webgl" width="1000" height="500">浏览器不支持</canvas>
+<script src="../lib/webgl-utils.js"></script>
+<script src="../lib/webgl-debug.js"></script>
+<script src="../lib/cuon-utils.js"></script>
+<script>
+    function main() {
+        var canvas = document.getElementById("webgl"),
+            gl = getWebGLContext(canvas);
+
+        if(!gl){
+            throw "不支持 WEBGL";
+            return;
+        }
+        //指定清空canvas颜色
+        //(1.0, 0.0, 0.0, 1.0) R
+        //(0.0, 1.0, 0.0, 1.0) G
+        //(0.0, 1.0, 1.0, 1.0) B
+        gl.clearColor(0.0, 0.0, 1.0, 0.5);
+        //清空canvas
+        gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+
+
+
+
+</script>
+</body>
+</html>
