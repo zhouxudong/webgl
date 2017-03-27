@@ -1,4 +1,4 @@
-#webgl study
+# webgl study
 
 ## WebGL基础
 ### WebGL坐标系统
@@ -75,5 +75,54 @@
     * 将数据（v0,v1,v2）传给由location参数指定的attribute变量
     */
     gl.vertexAttrib3f(location, v0, v1, v2);
+### 使用缓冲区对象
+    1. 创建缓冲区对象（gl.createBuffer()）.
+    2. 绑定缓冲区对象（gl.bindBuffer()).
+    3. 将数据写入缓冲区对象（gl.bufferData()).
+    4. 将缓冲区对象分配给一个attribute变量（gl.vertexAttribPointer()).
+    5. 开启attribute变量 （gl.enableVertexAttribArray()).
 
+#### 使用缓冲对象
+    var vertexBuffer = gl.createBuffer();
 
+#### 绑定缓冲对象
+    //允许使用buffer表示的缓冲区对象，并将其绑定到target表示的目标上
+    ／*
+    * target可以是
+    *    gl.ARRAY.BUFFER: 表示缓冲区对象中包含了顶点的数据
+    *    gl.ELEMENT_ARRAY_BUFFER： 表示缓冲区对象包含了顶点的索引值
+    * buffer： 指定之前由gl.createBuffer()返回的待绑定的缓冲区对象
+    *
+    *／
+    gl.bindBuffer(target, buffer);
+
+#### 向缓冲区对象写入数据
+
+     /*
+     * target:  gl.ARRAY_BUFFER 或 gl.ELEMENT_ARRAY_BUFFER
+     * data: 写入缓冲区对象的数据
+     * usage: 表示程序将如何使用存储在缓冲区对象中的数据
+     *   gl.STATIC_DRAW: 只会向缓冲区对象写入一次数据，但需绘制多次
+     *   gl.STREAM_DRAW: 只会向缓冲区对象中写入一次数据，然后绘制若干次
+     *   gl.DYNAMIC_DRAW: 会向缓冲区对象中多次写入数据，并绘制多次。
+     */
+     gl.bufferData(target, data, usage)；
+
+#### 将缓冲区对象分配给attribute变量
+     /*
+     * location  :指定待分配attribute变量的存储位置
+     * size：    指定缓冲区每个顶点的分量个数（1-4）。若size比attribute变量需要的分数小，缺失默认补全（2，3 默认0，4默认1）
+     * type：    用以下类型之一来指定数据格式：
+     *           gl.FLOAT:  浮点型                 gl.UNSIGNED_BYTE: 无符号字节，Uint8Array
+     *           gl.SHORT  :       短整型          gl.UNSIGNED_SHORT:  无符号短整型
+     *           gl.INT: 整型                      gl.UNSIGNED_INT: 无符号整型
+     * normalize： true 或 false，表明是否将非浮点型的数据归一化到[0,1]或[-1,1]区间
+     * stride:   指定相邻两个顶点间的字节数，默认为0
+     * offset:   指定缓冲区对象中的偏移量,即attribute变量从缓冲区中的何处开始存储。其实位置为0。
+     */
+     gl.vertexAttribPointer(location, size, type, normalized, stride, offset)
+
+#### 开启attribute变量
+    //开启location指定的attribute变量
+    gl.enableVertexArray(location);
+    //可以用gl.disableVertexArray(location) 关闭location指定的attribute变量
