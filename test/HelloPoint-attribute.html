@@ -19,9 +19,10 @@
     //顶点着色器
     var VSHADER_SOURCE =
         'attribute vec4 a_Position;' +
+        'attribute float a_PointSize;' +
         'void main() {\n' +
         ' gl_Position = a_Position;\n' +  //设置坐标
-        ' gl_PointSize = 10.0;\n' +   //设置尺寸
+        ' gl_PointSize = a_PointSize;\n' +   //设置尺寸
         '}\n';
 
     //片元着色器
@@ -48,8 +49,12 @@
             throw "获取a_Position的存储位置失败";
             return;
         }
+
         //将顶点位置传输给attribute变量
         gl.vertexAttrib3f(a_Position, 0.0, 0.0, 0.0);
+
+        var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+        gl.vertexAttrib1f(a_PointSize, 5.0);
 
         //指定清空canvas颜色
         //(1.0, 0.0, 0.0, 1.0) R
