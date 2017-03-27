@@ -58,4 +58,22 @@
     * count 指定绘制需要用到多少个顶点（整数）
     */
     gl.drawArrays(mode, first, count);
+### 使用attribute变量动态绘制
+    attribute变量是一个GLSL ES变量，被用来从外部向顶点着色器内传输数据，只有顶点着色器能用它；
+    使用步骤：
+    1：在顶点着色器中，声明attribute变量；
+    2: 将attribute变量赋值给gl_Position变量；
+    3: 向attribute变量传输数据
+
+    /*
+    * program  指定包含顶点着色器和片元着色器的着色器程序对象
+    * name     指定想要获取其存储地址attribute变量的名称
+    */
+    gl.getAttribLocation(program, name);
+
+    /*
+    * 将数据（v0,v1,v2）传给由location参数指定的attribute变量
+    */
+    gl.vertexAttrib3f(location, v0, v1, v2);
+
 
